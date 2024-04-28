@@ -12,7 +12,7 @@
 
 #include "singleton.h"
 
-
+// 日志输出
 #define MAKE_LOG_EVENT(level, message) \
     std::make_shared<caizi::LogEvent>(__FILE__, __LINE__, 0, 0, ::time(nullptr), message, " ", level)
 
@@ -24,6 +24,23 @@
 #define LOG_WARN(logger, message) LOG_LEVEL(logger, caizi::LogLevel::WARN, message)
 #define LOG_ERROR(logger, message) LOG_LEVEL(logger, caizi::LogLevel::ERROR, message)
 #define LOG_FATAL(logger, message) LOG_LEVEL(logger, caizi::LogLevel::FATAL, message)
+
+// 格式化的日志输出
+#define LOG_FMT_LEVEL(logger, level, format, argv...)   \
+{                                                       \
+    char* b = nullptr;                                  \
+    int l = asprintf(&b, format, argv);                 \
+    if(l != -1){                                        \
+        LOG_LEVEL(logger, level, std::string(b,l));      \
+        free(b);                                        \
+    }                                                   \
+}                                                       
+
+#define LOG_FMT_DEBUG(logger, format, argv...) LOG_FMT_LEVEL(logger, caizi::LogLevel::DEBUG, format, argv)
+#define LOG_FMT_INFO(logger, format, argv...) LOG_FMT_LEVEL(logger, caizi::LogLevel::INFO, format, argv)
+#define LOG_FMT_WARN(logger, format, argv...) LOG_FMT_LEVEL(logger, caizi::LogLevel::WARN, format, argv)
+#define LOG_FMT_ERROR(logger, format, argv...) LOG_FMT_LEVEL(logger, caizi::LogLevel::ERROR, format, argv)
+#define LOG_FMT_FATAL(logger, format, argv...) LOG_FMT_LEVEL(logger, caizi::LogLevel::FATAL, format, argv)
 
 #define GET_ROOT_LOGGER() caizi::LoggerManager::getInstance()->getGlobalLogger()
 #define GET_LOGGER(name) caizi::LoggerManager::getInstance()->getLogger(name)

@@ -1,4 +1,4 @@
-# Install script for directory: /home/caizi/C++/server_my_framework
+# Install script for directory: /home/caizi/C++/web_framework
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,12 +39,12 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/caizi/C++/server_my_framework/build/src/cmake_install.cmake")
+  include("/home/caizi/C++/web_framework/build/src/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/caizi/C++/server_my_framework/build/test/cmake_install.cmake")
+  include("/home/caizi/C++/web_framework/build/test/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -55,5 +55,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/caizi/C++/server_my_framework/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/caizi/C++/web_framework/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

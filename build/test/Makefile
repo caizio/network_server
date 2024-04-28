@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/caizi/C++/server_my_framework
+CMAKE_SOURCE_DIR = /home/caizi/C++/web_framework
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/caizi/C++/server_my_framework/build
+CMAKE_BINARY_DIR = /home/caizi/C++/web_framework/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/caizi/C++/server_my_framework/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/caizi/C++/server_my_framework/build/CMakeFiles /home/caizi/C++/server_my_framework/build/test/CMakeFiles/progress.marks
-	cd /home/caizi/C++/server_my_framework/build && $(MAKE) -f CMakeFiles/Makefile2 test/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/caizi/C++/server_my_framework/build/CMakeFiles 0
+	cd /home/caizi/C++/web_framework/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/caizi/C++/web_framework/build/CMakeFiles /home/caizi/C++/web_framework/build/test/CMakeFiles/progress.marks
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f CMakeFiles/Makefile2 test/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/caizi/C++/web_framework/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/caizi/C++/server_my_framework/build && $(MAKE) -f CMakeFiles/Makefile2 test/clean
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f CMakeFiles/Makefile2 test/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,37 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/caizi/C++/server_my_framework/build && $(MAKE) -f CMakeFiles/Makefile2 test/preinstall
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f CMakeFiles/Makefile2 test/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/caizi/C++/server_my_framework/build && $(MAKE) -f CMakeFiles/Makefile2 test/preinstall
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f CMakeFiles/Makefile2 test/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/caizi/C++/server_my_framework/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/caizi/C++/web_framework/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
+test/CMakeFiles/test_thread.dir/rule:
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_thread.dir/rule
+.PHONY : test/CMakeFiles/test_thread.dir/rule
+
+# Convenience name for target.
+test_thread: test/CMakeFiles/test_thread.dir/rule
+
+.PHONY : test_thread
+
+# fast build rule for target.
+test_thread/fast:
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f test/CMakeFiles/test_thread.dir/build.make test/CMakeFiles/test_thread.dir/build
+.PHONY : test_thread/fast
+
+# Convenience name for target.
 test/CMakeFiles/test_log.dir/rule:
-	cd /home/caizi/C++/server_my_framework/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_log.dir/rule
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_log.dir/rule
 .PHONY : test/CMakeFiles/test_log.dir/rule
 
 # Convenience name for target.
@@ -122,12 +137,12 @@ test_log: test/CMakeFiles/test_log.dir/rule
 
 # fast build rule for target.
 test_log/fast:
-	cd /home/caizi/C++/server_my_framework/build && $(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/build
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/build
 .PHONY : test_log/fast
 
 # Convenience name for target.
 test/CMakeFiles/test_config.dir/rule:
-	cd /home/caizi/C++/server_my_framework/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_config.dir/rule
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_config.dir/rule
 .PHONY : test/CMakeFiles/test_config.dir/rule
 
 # Convenience name for target.
@@ -137,7 +152,7 @@ test_config: test/CMakeFiles/test_config.dir/rule
 
 # fast build rule for target.
 test_config/fast:
-	cd /home/caizi/C++/server_my_framework/build && $(MAKE) -f test/CMakeFiles/test_config.dir/build.make test/CMakeFiles/test_config.dir/build
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f test/CMakeFiles/test_config.dir/build.make test/CMakeFiles/test_config.dir/build
 .PHONY : test_config/fast
 
 test_config.o: test_config.cpp.o
@@ -146,7 +161,7 @@ test_config.o: test_config.cpp.o
 
 # target to build an object file
 test_config.cpp.o:
-	cd /home/caizi/C++/server_my_framework/build && $(MAKE) -f test/CMakeFiles/test_config.dir/build.make test/CMakeFiles/test_config.dir/test_config.cpp.o
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f test/CMakeFiles/test_config.dir/build.make test/CMakeFiles/test_config.dir/test_config.cpp.o
 .PHONY : test_config.cpp.o
 
 test_config.i: test_config.cpp.i
@@ -155,7 +170,7 @@ test_config.i: test_config.cpp.i
 
 # target to preprocess a source file
 test_config.cpp.i:
-	cd /home/caizi/C++/server_my_framework/build && $(MAKE) -f test/CMakeFiles/test_config.dir/build.make test/CMakeFiles/test_config.dir/test_config.cpp.i
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f test/CMakeFiles/test_config.dir/build.make test/CMakeFiles/test_config.dir/test_config.cpp.i
 .PHONY : test_config.cpp.i
 
 test_config.s: test_config.cpp.s
@@ -164,7 +179,7 @@ test_config.s: test_config.cpp.s
 
 # target to generate assembly for a file
 test_config.cpp.s:
-	cd /home/caizi/C++/server_my_framework/build && $(MAKE) -f test/CMakeFiles/test_config.dir/build.make test/CMakeFiles/test_config.dir/test_config.cpp.s
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f test/CMakeFiles/test_config.dir/build.make test/CMakeFiles/test_config.dir/test_config.cpp.s
 .PHONY : test_config.cpp.s
 
 test_log.o: test_log.cpp.o
@@ -173,7 +188,7 @@ test_log.o: test_log.cpp.o
 
 # target to build an object file
 test_log.cpp.o:
-	cd /home/caizi/C++/server_my_framework/build && $(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/test_log.cpp.o
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/test_log.cpp.o
 .PHONY : test_log.cpp.o
 
 test_log.i: test_log.cpp.i
@@ -182,7 +197,7 @@ test_log.i: test_log.cpp.i
 
 # target to preprocess a source file
 test_log.cpp.i:
-	cd /home/caizi/C++/server_my_framework/build && $(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/test_log.cpp.i
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/test_log.cpp.i
 .PHONY : test_log.cpp.i
 
 test_log.s: test_log.cpp.s
@@ -191,8 +206,35 @@ test_log.s: test_log.cpp.s
 
 # target to generate assembly for a file
 test_log.cpp.s:
-	cd /home/caizi/C++/server_my_framework/build && $(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/test_log.cpp.s
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/test_log.cpp.s
 .PHONY : test_log.cpp.s
+
+test_thread.o: test_thread.cpp.o
+
+.PHONY : test_thread.o
+
+# target to build an object file
+test_thread.cpp.o:
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f test/CMakeFiles/test_thread.dir/build.make test/CMakeFiles/test_thread.dir/test_thread.cpp.o
+.PHONY : test_thread.cpp.o
+
+test_thread.i: test_thread.cpp.i
+
+.PHONY : test_thread.i
+
+# target to preprocess a source file
+test_thread.cpp.i:
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f test/CMakeFiles/test_thread.dir/build.make test/CMakeFiles/test_thread.dir/test_thread.cpp.i
+.PHONY : test_thread.cpp.i
+
+test_thread.s: test_thread.cpp.s
+
+.PHONY : test_thread.s
+
+# target to generate assembly for a file
+test_thread.cpp.s:
+	cd /home/caizi/C++/web_framework/build && $(MAKE) -f test/CMakeFiles/test_thread.dir/build.make test/CMakeFiles/test_thread.dir/test_thread.cpp.s
+.PHONY : test_thread.cpp.s
 
 # Help Target
 help:
@@ -202,6 +244,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... test_thread"
 	@echo "... test_log"
 	@echo "... test_config"
 	@echo "... test_config.o"
@@ -210,6 +253,9 @@ help:
 	@echo "... test_log.o"
 	@echo "... test_log.i"
 	@echo "... test_log.s"
+	@echo "... test_thread.o"
+	@echo "... test_thread.i"
+	@echo "... test_thread.s"
 .PHONY : help
 
 
@@ -221,6 +267,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/caizi/C++/server_my_framework/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/caizi/C++/web_framework/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

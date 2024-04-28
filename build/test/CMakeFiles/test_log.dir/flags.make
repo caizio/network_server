@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -O0 -g -ggdb -Wno-unused-variable -std=gnu++17
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/caizi/C++/server_my_framework/src -I/home/caizi/C++/server_my_framework/test/../src -I/usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/../../../../../include 
+CXX_INCLUDES = -I/home/caizi/C++/web_framework/src -I/home/caizi/C++/web_framework/test/../src -I/usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/../../../../../include 
 

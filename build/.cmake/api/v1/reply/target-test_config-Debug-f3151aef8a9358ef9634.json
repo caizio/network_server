@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "/home/caizi/C++/server_my_framework/bin/test_config"
+			"path" : "/home/caizi/C++/web_framework/bin/test_config"
 		}
 	],
 	"backtrace" : 1,
@@ -76,11 +76,11 @@
 			[
 				{
 					"backtrace" : 4,
-					"path" : "/home/caizi/C++/server_my_framework/src"
+					"path" : "/home/caizi/C++/web_framework/src"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/caizi/C++/server_my_framework/test/../src"
+					"path" : "/home/caizi/C++/web_framework/test/../src"
 				},
 				{
 					"backtrace" : 6,
@@ -122,6 +122,10 @@
 			{
 				"backtrace" : 2,
 				"fragment" : "/usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.6.2",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lpthread",
 				"role" : "libraries"
 			}
 		],

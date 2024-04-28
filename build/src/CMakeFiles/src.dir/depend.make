@@ -8,3 +8,12 @@ src/CMakeFiles/src.dir/log.cpp.o: ../src/log.cpp
 src/CMakeFiles/src.dir/log.cpp.o: ../src/log.h
 src/CMakeFiles/src.dir/log.cpp.o: ../src/singleton.h
 
+src/CMakeFiles/src.dir/thread.cpp.o: ../src/log.h
+src/CMakeFiles/src.dir/thread.cpp.o: ../src/noncopyable.h
+src/CMakeFiles/src.dir/thread.cpp.o: ../src/singleton.h
+src/CMakeFiles/src.dir/thread.cpp.o: ../src/thread.cpp
+src/CMakeFiles/src.dir/thread.cpp.o: ../src/thread.h
+
+src/CMakeFiles/src.dir/util.cpp.o: ../src/util.cpp
+src/CMakeFiles/src.dir/util.cpp.o: ../src/util.h
+

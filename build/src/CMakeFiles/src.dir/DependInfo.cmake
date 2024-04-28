@@ -4,8 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/caizi/C++/server_my_framework/src/config.cpp" "/home/caizi/C++/server_my_framework/build/src/CMakeFiles/src.dir/config.cpp.o"
-  "/home/caizi/C++/server_my_framework/src/log.cpp" "/home/caizi/C++/server_my_framework/build/src/CMakeFiles/src.dir/log.cpp.o"
+  "/home/caizi/C++/web_framework/src/config.cpp" "/home/caizi/C++/web_framework/build/src/CMakeFiles/src.dir/config.cpp.o"
+  "/home/caizi/C++/web_framework/src/log.cpp" "/home/caizi/C++/web_framework/build/src/CMakeFiles/src.dir/log.cpp.o"
+  "/home/caizi/C++/web_framework/src/thread.cpp" "/home/caizi/C++/web_framework/build/src/CMakeFiles/src.dir/thread.cpp.o"
+  "/home/caizi/C++/web_framework/src/util.cpp" "/home/caizi/C++/web_framework/build/src/CMakeFiles/src.dir/util.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

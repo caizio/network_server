@@ -11,10 +11,11 @@ namespace caizi{
 // @brief 通过继承这个类，实现不可复制对象
 class Noncopyable{
 public:
-    Noncopyable() = default;
-    ~Noncopyable() = default;
     Noncopyable(const Noncopyable&) = delete;
     Noncopyable& operator=(const Noncopyable&) = delete;
+protected:
+    Noncopyable() = default;
+    ~Noncopyable() = default;
 };
 }
 

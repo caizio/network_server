@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/caizi/C++/server_my_framework/test/test_config.cpp" "/home/caizi/C++/server_my_framework/build/test/CMakeFiles/test_config.dir/test_config.cpp.o"
+  "/home/caizi/C++/web_framework/test/test_config.cpp" "/home/caizi/C++/web_framework/build/test/CMakeFiles/test_config.dir/test_config.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -17,7 +17,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/caizi/C++/server_my_framework/build/src/CMakeFiles/src.dir/DependInfo.cmake"
+  "/home/caizi/C++/web_framework/build/src/CMakeFiles/src.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

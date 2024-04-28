@@ -1,22 +1,37 @@
 [
 {
-  "directory": "/home/caizi/C++/server_my_framework/build/src",
-  "command": "/usr/bin/g++   -I/home/caizi/C++/server_my_framework/src  -g   -O0 -g -ggdb -Wno-unused-variable -std=gnu++17 -o CMakeFiles/src.dir/config.cpp.o -c /home/caizi/C++/server_my_framework/src/config.cpp",
-  "file": "/home/caizi/C++/server_my_framework/src/config.cpp"
+  "directory": "/home/caizi/C++/web_framework/build/src",
+  "command": "/usr/bin/g++   -I/home/caizi/C++/web_framework/src  -g   -O0 -g -ggdb -Wno-unused-variable -std=gnu++17 -o CMakeFiles/src.dir/config.cpp.o -c /home/caizi/C++/web_framework/src/config.cpp",
+  "file": "/home/caizi/C++/web_framework/src/config.cpp"
 },
 {
-  "directory": "/home/caizi/C++/server_my_framework/build/src",
-  "command": "/usr/bin/g++   -I/home/caizi/C++/server_my_framework/src  -g   -O0 -g -ggdb -Wno-unused-variable -std=gnu++17 -o CMakeFiles/src.dir/log.cpp.o -c /home/caizi/C++/server_my_framework/src/log.cpp",
-  "file": "/home/caizi/C++/server_my_framework/src/log.cpp"
+  "directory": "/home/caizi/C++/web_framework/build/src",
+  "command": "/usr/bin/g++   -I/home/caizi/C++/web_framework/src  -g   -O0 -g -ggdb -Wno-unused-variable -std=gnu++17 -o CMakeFiles/src.dir/log.cpp.o -c /home/caizi/C++/web_framework/src/log.cpp",
+  "file": "/home/caizi/C++/web_framework/src/log.cpp"
 },
 {
-  "directory": "/home/caizi/C++/server_my_framework/build/test",
-  "command": "/usr/bin/g++   -I/home/caizi/C++/server_my_framework/src -I/home/caizi/C++/server_my_framework/test/../src -I/usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/../../../../../include  -g   -O0 -g -ggdb -Wno-unused-variable -std=gnu++17 -o CMakeFiles/test_log.dir/test_log.cpp.o -c /home/caizi/C++/server_my_framework/test/test_log.cpp",
-  "file": "/home/caizi/C++/server_my_framework/test/test_log.cpp"
+  "directory": "/home/caizi/C++/web_framework/build/src",
+  "command": "/usr/bin/g++   -I/home/caizi/C++/web_framework/src  -g   -O0 -g -ggdb -Wno-unused-variable -std=gnu++17 -o CMakeFiles/src.dir/thread.cpp.o -c /home/caizi/C++/web_framework/src/thread.cpp",
+  "file": "/home/caizi/C++/web_framework/src/thread.cpp"
 },
 {
-  "directory": "/home/caizi/C++/server_my_framework/build/test",
-  "command": "/usr/bin/g++   -I/home/caizi/C++/server_my_framework/src -I/home/caizi/C++/server_my_framework/test/../src -I/usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/../../../../../include  -g   -O0 -g -ggdb -Wno-unused-variable -std=gnu++17 -o CMakeFiles/test_config.dir/test_config.cpp.o -c /home/caizi/C++/server_my_framework/test/test_config.cpp",
-  "file": "/home/caizi/C++/server_my_framework/test/test_config.cpp"
+  "directory": "/home/caizi/C++/web_framework/build/src",
+  "command": "/usr/bin/g++   -I/home/caizi/C++/web_framework/src  -g   -O0 -g -ggdb -Wno-unused-variable -std=gnu++17 -o CMakeFiles/src.dir/util.cpp.o -c /home/caizi/C++/web_framework/src/util.cpp",
+  "file": "/home/caizi/C++/web_framework/src/util.cpp"
+},
+{
+  "directory": "/home/caizi/C++/web_framework/build/test",
+  "command": "/usr/bin/g++   -I/home/caizi/C++/web_framework/src -I/home/caizi/C++/web_framework/test/../src -I/usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/../../../../../include  -g   -O0 -g -ggdb -Wno-unused-variable -std=gnu++17 -o CMakeFiles/test_thread.dir/test_thread.cpp.o -c /home/caizi/C++/web_framework/test/test_thread.cpp",
+  "file": "/home/caizi/C++/web_framework/test/test_thread.cpp"
+},
+{
+  "directory": "/home/caizi/C++/web_framework/build/test",
+  "command": "/usr/bin/g++   -I/home/caizi/C++/web_framework/src -I/home/caizi/C++/web_framework/test/../src -I/usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/../../../../../include  -g   -O0 -g -ggdb -Wno-unused-variable -std=gnu++17 -o CMakeFiles/test_log.dir/test_log.cpp.o -c /home/caizi/C++/web_framework/test/test_log.cpp",
+  "file": "/home/caizi/C++/web_framework/test/test_log.cpp"
+},
+{
+  "directory": "/home/caizi/C++/web_framework/build/test",
+  "command": "/usr/bin/g++   -I/home/caizi/C++/web_framework/src -I/home/caizi/C++/web_framework/test/../src -I/usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/../../../../../include  -g   -O0 -g -ggdb -Wno-unused-variable -std=gnu++17 -o CMakeFiles/test_config.dir/test_config.cpp.o -c /home/caizi/C++/web_framework/test/test_config.cpp",
+  "file": "/home/caizi/C++/web_framework/test/test_config.cpp"
 }
 ]

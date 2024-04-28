@@ -44,7 +44,8 @@
 					"targetIndexes" : 
 					[
 						1,
-						2
+						2,
+						3
 					]
 				}
 			],
@@ -63,7 +64,8 @@
 					[
 						0,
 						1,
-						2
+						2,
+						3
 					]
 				}
 			],
@@ -72,22 +74,29 @@
 				{
 					"directoryIndex" : 1,
 					"id" : "src::@145eef247bfb46b6828c",
-					"jsonFile" : "target-src-Debug-ccbc0d196ddcd82ceab4.json",
+					"jsonFile" : "target-src-Debug-59896a9e2dc30c4e855c.json",
 					"name" : "src",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 2,
 					"id" : "test_config::@36f028580bb02cc8272a",
-					"jsonFile" : "target-test_config-Debug-d1a83103b78595bebe9b.json",
+					"jsonFile" : "target-test_config-Debug-f3151aef8a9358ef9634.json",
 					"name" : "test_config",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 2,
 					"id" : "test_log::@36f028580bb02cc8272a",
-					"jsonFile" : "target-test_log-Debug-4ae72686ac289a52e25d.json",
+					"jsonFile" : "target-test_log-Debug-b65233d62a3f0e626758.json",
 					"name" : "test_log",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "test_thread::@36f028580bb02cc8272a",
+					"jsonFile" : "target-test_thread-Debug-21e6d7fa567496779bb6.json",
+					"name" : "test_thread",
 					"projectIndex" : 0
 				}
 			]
@@ -96,8 +105,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/caizi/C++/server_my_framework/build",
-		"source" : "/home/caizi/C++/server_my_framework"
+		"build" : "/home/caizi/C++/web_framework/build",
+		"source" : "/home/caizi/C++/web_framework"
 	},
 	"version" : 
 	{

@@ -1,4 +1,4 @@
-# Install script for directory: /home/caizi/C++/server_my_framework/test
+# Install script for directory: /home/caizi/C++/web_framework/test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
