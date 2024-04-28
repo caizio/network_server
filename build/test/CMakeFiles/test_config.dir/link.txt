@@ -1,0 +1,1 @@
+/usr/bin/g++  -g   CMakeFiles/test_config.dir/test_config.cpp.o  -o ../../bin/test_config  ../../lib/libsrc.a /usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.6.2 

@@ -1,0 +1,11 @@
+user:
+  test:
+    goodS: <<书>>
+    price: 22.22
+  account
+    - name: caizi
+      sex: true
+      age: 21
+    - name: xiaoming
+      sex: true
+      age: 18

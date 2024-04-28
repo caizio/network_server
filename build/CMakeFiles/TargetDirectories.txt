@@ -1,0 +1,9 @@
+/home/caizi/C++/server_my_framework/build/CMakeFiles/rebuild_cache.dir
+/home/caizi/C++/server_my_framework/build/CMakeFiles/edit_cache.dir
+/home/caizi/C++/server_my_framework/build/src/CMakeFiles/rebuild_cache.dir
+/home/caizi/C++/server_my_framework/build/src/CMakeFiles/edit_cache.dir
+/home/caizi/C++/server_my_framework/build/src/CMakeFiles/src.dir
+/home/caizi/C++/server_my_framework/build/test/CMakeFiles/rebuild_cache.dir
+/home/caizi/C++/server_my_framework/build/test/CMakeFiles/edit_cache.dir
+/home/caizi/C++/server_my_framework/build/test/CMakeFiles/test_log.dir
+/home/caizi/C++/server_my_framework/build/test/CMakeFiles/test_config.dir
