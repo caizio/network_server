@@ -8,6 +8,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/types.h>
+#include <sys/un.h>
 
 namespace caizi{
 
@@ -21,10 +22,11 @@ public:
 
     int getFamily() const;
     virtual const sockaddr* getAddr() const = 0;
+    virtual sockaddr* getAddr() = 0;
     virtual socklen_t getAddrLen() const = 0;
 
     // 将地址信息插入到输出流
-    virtual std::ostream& insert(const std::ostream& os) const;
+    virtual std::ostream& insert(std::ostream& os) const;
     std::string toString() const;
 
     // 用于地址的比较
@@ -56,14 +58,64 @@ public:
     IPv4Address(uint32_t address = INADDR_ANY, uint16_t port = 0);
 
     const sockaddr* getAddr() const override;
+    socklen_t getAddrLen() const override;
     IPAddress::ptr broadcastAddress(uint32_t prefix_len) const override;
     IPAddress::ptr networkAddress(uint32_t prefix_len) const override;
     IPAddress::ptr subnetMask(uint32_t prefix_len) const override;
 
     uint32_t get_port() const override;
+    void set_port(uint16_t) override;
 
+    std::ostream& insert(std::ostream& os) const override;
 private:
     sockaddr_in m_addr;
+};
+
+class IPv6Address : public IPAddress{
+public:
+    typedef std::shared_ptr<IPv6Address> ptr;
+    static IPv4Address::ptr create(const char* address, uint16_t port = 0);
+    IPv6Address(const sockaddr_in& address);
+    IPv6Address(uint32_t address = INADDR_ANY, uint16_t port = 0);
+
+    const sockaddr* getAddr() const override;
+    socklen_t getAddrLen() const override;
+    std::ostream& insert(std::ostream& os) const override;
+
+    IPAddress::ptr broadcastAddress(uint32_t prefix_len) const override;
+    IPAddress::ptr networkAddress(uint32_t prefix_len) const override;
+    IPAddress::ptr subnetMask(uint32_t prefix_len) const override;
+
+    uint32_t get_port() const override;
+    void set_port(uint16_t) override;
+private:
+    sockaddr_in m_addr;
+};
+
+class UnixAddress : public Address{
+public:
+    typedef std::shared_ptr<UnixAddress> ptr;
+    UnixAddress(const std::string& path);
+
+    const sockaddr* getAddr() const override;
+    socklen_t getAddrLen() const override;
+    std::ostream& insert(std::ostream& os) const override;
+private:
+    struct sockaddr_un m_addr;
+    socklen_t m_length;
+};
+
+class UnknownAddress: public Address{
+public:
+    typedef std::shared_ptr<UnknownAddress> ptr;
+    UnknownAddress(int family);
+    UnknownAddress(const sockaddr& addr);
+    const sockaddr* getAddr() const override;
+    sockaddr* getAddr() override;
+    socklen_t getAddrLen() const override;
+    std::ostream& insert(std::ostream& os) const override;
+private:
+    sockaddr m_addr;    
 };
 
 }
