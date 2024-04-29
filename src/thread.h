@@ -12,7 +12,7 @@ namespace caizi{
 
 class Semaphore : public Noncopyable{
 public:
-    explicit Semaphore(uint32_t count);
+    explicit Semaphore(uint32_t count = 0);
     ~Semaphore();
     void wait();
     void notify();
@@ -20,7 +20,7 @@ private:
     sem_t m_semaphore;
 };
 
-class Thread{
+class Thread : public Noncopyable{
 public:
     typedef std::shared_ptr<Thread> ptr;
     typedef std::unique_ptr<Thread> uptr;
@@ -63,9 +63,42 @@ struct ThreadData{
     pid_t* m_id;
     Semaphore* m_semaphore;
 
-    ThreadData();
-    void runInThread(void* arg);
+    ThreadData(ThreadFunc func, const std::string& name, pid_t* pid, Semaphore* sem);
+    void runInThread();
 };
+
+// 锁的模板类
+template<class T>
+class ScopedLockImpl{
+public:
+    explicit ScopedLockImpl(T* mutex) : m_mutex(mutex){
+            m_mutex->lock();
+            m_locked = true;
+        }
+
+    ~ScopedLockImpl(){
+        unlock();
+    }
+
+    void lock(){
+        if(!m_locked){
+            m_mutex.lock();
+            m_locked = true;
+        }
+    }
+
+    void unlock(){
+        if(m_locked){
+            m_locked = false;
+            m_mutex.unlock();
+        }
+    }
+
+private:
+    T* m_mutex;
+    bool m_locked;
+};
+
 
 }
 

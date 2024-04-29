@@ -12,6 +12,8 @@ namespace caizi{
 class Noncopyable{
 public:
     Noncopyable(const Noncopyable&) = delete;
+    // 禁用移动构造，即使用move的方法
+    Noncopyable(const Noncopyable&&) = delete;
     Noncopyable& operator=(const Noncopyable&) = delete;
 protected:
     Noncopyable() = default;
