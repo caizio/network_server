@@ -5,6 +5,8 @@
 #include <map>
 #include <yaml-cpp/yaml.h>
 
+#include "thread.h"
+
 namespace caizi{
 
 // 配置项基类
@@ -50,9 +52,13 @@ public:
         ConfigVarBase(name, descriptopm), m_value(value){};
 
     void setValue(const T value){
+        WriteScopeLock lock(&m_mutex);
         m_value = value;
     }
-    T getValue() const{ return m_value;};
+    T getValue() const{ 
+        ReadScopeLock lock(&m_mutex);
+        return m_value;
+    };
 
     std::string toString() const override{
         try{
@@ -82,6 +88,7 @@ public:
 
 private:
     T m_value;
+    mutable RWLock m_mutex;
 };
 
 // 配置项的管理类
@@ -102,6 +109,7 @@ public:
     // 返回指定类型T的配置项
     template<class T>
     static typename ConfigVar<T>::ptr Lookup(const std::string &name){
+        ReadScopeLock lock(&getRWlock());
         ConfigVarBase::ptr base_ptr = Lookup(name);
         if(!base_ptr) return nullptr;
         auto ptr = std::dynamic_pointer_cast<ConfigVar<T>>(base_ptr);
@@ -121,6 +129,7 @@ public:
             std::cerr << "Config:Loopup exception, 参数只能以数字、点、下划线为开头" << std::endl;
         }
         auto v = std::make_shared<ConfigVar<T>>(name, value, description);
+        WriteScopeLock lock(&getRWlock());
         getData()[name] = v;
         return v;
     }
@@ -177,6 +186,11 @@ private:
     static ConfigVarMap& getData(){
         static ConfigVarMap m_data;
         return m_data;
+    }
+
+    static RWLock& getRWlock(){
+        static RWLock m_lock;
+        return m_lock;
     }
 };
 

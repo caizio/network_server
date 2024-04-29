@@ -9,7 +9,7 @@
 #include <list>
 #include <sstream>
 #include <map>
-
+#include "thread.h"
 #include "singleton.h"
 
 // 日志输出
@@ -148,12 +148,13 @@ public:
     virtual void log(LogLevel::Level level, LogEvent::ptr ev) = 0;
 
     void setFormatter(LogFormatter::ptr val);
-    LogFormatter::ptr getFormatter() const {return m_formatter;}
+    LogFormatter::ptr getFormatter();
 private:
 protected:
     LogLevel::Level m_level = LogLevel::DEBUG;
     LogFormatter::ptr m_formatter;
     bool m_hasFormatter = false;
+    Mutex m_mutex;
 };
 
 // 日志器
@@ -163,13 +164,7 @@ public:
 
     Logger();
     Logger(const std::string& name, LogLevel::Level, const std::string &pattern);
-    void log(LogLevel::Level level, LogEvent::ptr event);
-    // void debug(LogEvent::ptr event);
-    // void info(LogEvent::ptr event);
-    // void warn(LogEvent::ptr event);
-    // void error(LogEvent::ptr event);
-    // void fatal(LogEvent::ptr event);
-    
+    void log(LogLevel::Level level, LogEvent::ptr event);    
     void addAppender(LogAppender::ptr appender);
     void delAppender(LogAppender::ptr appender);
     void clearAppedners();
@@ -186,6 +181,7 @@ private:
     LogFormatter::ptr m_formatter;
     std::list<LogAppender::ptr> m_appenders;
     std::string m_format_pattern;
+    Mutex m_mutex;
 };
 
 // 日志输出地的派生类，输出到终端
@@ -224,15 +220,10 @@ private:
     void init();
     void ensureGlobalLoggerExists();
     std::map<std::string, Logger::ptr> m_logger_map;
+    Mutex m_mutex;
 };
 
-// struct LogIniter{
-//     LogIniter(){
-
-//     }
-// };
 typedef SingletonPtr<__LoggerManager> LoggerManager;
-// typedef Singleton<__LoggerManager> test;
 
 }
 

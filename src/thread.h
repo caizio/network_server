@@ -82,7 +82,7 @@ public:
 
     void lock(){
         if(!m_locked){
-            m_mutex.lock();
+            m_mutex->lock();
             m_locked = true;
         }
     }
@@ -90,7 +90,7 @@ public:
     void unlock(){
         if(m_locked){
             m_locked = false;
-            m_mutex.unlock();
+            m_mutex->unlock();
         }
     }
 
@@ -156,7 +156,7 @@ template<class T>
 class WriteScopeLockImpl{
 public:
     explicit WriteScopeLockImpl(T* mutex): m_mutex(mutex) {
-        m_mutex->readlock();
+        m_mutex->writelock();
         m_locked = true;
     }
 

@@ -211,6 +211,7 @@ Logger::Logger(const std::string& name,  LogLevel::Level level, const std::strin
 // 遍历输出器，输出日志
 void Logger::log(LogLevel::Level level, LogEvent::ptr event){
     if(level >= m_level){
+        ScopeLock lock(&m_mutex);
         if(!(m_appenders.empty())){
             for(auto& p: m_appenders){
                 p->log(level, event);
@@ -220,6 +221,7 @@ void Logger::log(LogLevel::Level level, LogEvent::ptr event){
 }
 
 void Logger::addAppender(LogAppender::ptr appender){
+    ScopeLock lock(&m_mutex);
     if(!appender->getFormatter()){
         appender->setFormatter(m_formatter);
     }
@@ -227,6 +229,7 @@ void Logger::addAppender(LogAppender::ptr appender){
 }
 
 void Logger::delAppender(LogAppender::ptr appender){
+    ScopeLock lock(&m_mutex);
     for(auto it = m_appenders.begin(); it != m_appenders.end(); it++){
         if(*it == appender){
             m_appenders.erase(it);
@@ -236,10 +239,12 @@ void Logger::delAppender(LogAppender::ptr appender){
 }
 
 void Logger::clearAppedners(){
+    ScopeLock lock(&m_mutex);
     m_appenders.clear();
 }
 
 void Logger::setFormatter(LogFormatter::ptr val){
+    ScopeLock lock(&m_mutex);
     m_formatter = val;
     for(auto &p:m_appenders){
         if(!p->m_hasFormatter){
@@ -257,6 +262,7 @@ LogAppender::LogAppender(LogLevel::Level level){
 }
 
 void LogAppender::setFormatter(LogFormatter::ptr val){
+    ScopeLock lock(&m_mutex);
     m_formatter = val;
     if(m_formatter){
         m_hasFormatter = true;
@@ -265,12 +271,18 @@ void LogAppender::setFormatter(LogFormatter::ptr val){
     }
 }
 
+LogFormatter::ptr LogAppender::getFormatter(){
+    ScopeLock lock(&m_mutex);
+    return m_formatter;
+}
+
 StdoutLogAppender::StdoutLogAppender(LogLevel::Level level){
 
 }
 
 void StdoutLogAppender::log(LogLevel::Level level, LogEvent::ptr event){
     if(level < m_level) return;
+    ScopeLock lock(&m_mutex);
     std::cout << m_formatter->format(level, event);
     std::cout.flush();
 }
@@ -282,6 +294,7 @@ FileLogAppender::FileLogAppender(const std::string &filename,  LogLevel::Level l
 
 void FileLogAppender::log(LogLevel::Level level, LogEvent::ptr ev) {
     if(level < m_level) return;
+    ScopeLock lock(&m_mutex);
     m_file_stream <<  m_formatter->format(level,ev); 
     m_file_stream.flush();
 }
@@ -299,6 +312,7 @@ __LoggerManager::__LoggerManager(){
 }
 
 Logger::ptr __LoggerManager::getLogger(const std::string &name){
+    ScopeLock lock(&m_mutex);
     auto iter = m_logger_map.find(name);
     if(iter == m_logger_map.end()){
         return m_logger_map.find("global")->second;
@@ -311,6 +325,7 @@ Logger::ptr __LoggerManager::getGlobalLogger(){
 }
 
 void __LoggerManager::init(){
+    ScopeLock lock(&m_mutex);
     m_logger_map.erase("global");
     Logger::ptr logger = std::make_shared<Logger>("global",LogLevel::DEBUG,"%p%d%n%d%t%d%f%d%l%d%m");
     LogAppender::ptr appender = std::make_shared<StdoutLogAppender>(LogLevel::DEBUG);
@@ -322,6 +337,7 @@ void __LoggerManager::init(){
 
 // 确保只保留一个全局日志器
 void __LoggerManager::ensureGlobalLoggerExists(){
+    ScopeLock lock(&m_mutex);
     auto iter = m_logger_map.find("global");
     if(iter == m_logger_map.end()){
         // 如果不存在全局日志器，则重新构造一个默认的

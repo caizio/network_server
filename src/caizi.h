@@ -6,5 +6,4 @@
 #include "noncopyable.h"
 #include "thread.h"
 
-
 #endif
