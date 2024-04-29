@@ -11,9 +11,6 @@ static thread_local std::string t_thread_name = "UNKNOW";
 
 static Logger::ptr system_logger = GET_LOGGER("system");
 
-
-
-
 /*
     Semaphore 类的实现
     对信号量进行封装

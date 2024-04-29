@@ -99,6 +99,121 @@ private:
     bool m_locked;
 };
 
+/*
+    互斥量的封装
+*/
+class Mutex{
+public:
+    Mutex(){
+        pthread_mutex_init(&m_mutex, nullptr);
+    }
+
+    ~Mutex(){
+        pthread_mutex_destroy(&m_mutex);
+    }
+
+    int lock() { return pthread_mutex_lock(&m_mutex);}
+    int unlock() { return pthread_mutex_unlock(&m_mutex);}
+private:
+    pthread_mutex_t m_mutex{};
+};
+
+using ScopeLock = ScopedLockImpl<Mutex>;
+
+// 读锁包装器，T需要实现Readlock()和unlock()方法
+template<class T>
+class ReadScopeLockImpl{
+public:
+    explicit ReadScopeLockImpl(T* mutex): m_mutex(mutex) {
+        m_mutex->readlock();
+        m_locked = true;
+    }
+
+    ~ReadScopeLockImpl(){
+        unlock();
+    }
+
+    void lock(){
+        if(!m_locked){
+            m_mutex->readlock();
+            m_locked = true;
+        }
+    }
+
+    void unlock(){
+        if(m_locked){
+            m_locked = false;
+            m_mutex->unlock();
+        }
+    }
+private:
+    T* m_mutex;
+    bool m_locked;
+};
+
+// 写锁包装器，T需要实现Writelock()和unlock()方法
+template<class T>
+class WriteScopeLockImpl{
+public:
+    explicit WriteScopeLockImpl(T* mutex): m_mutex(mutex) {
+        m_mutex->readlock();
+        m_locked = true;
+    }
+
+    ~WriteScopeLockImpl(){
+        unlock();
+    }
+
+    void lock(){
+        if(!m_locked){
+            m_mutex->writelock();
+            m_locked = true;
+        }
+    }
+
+    void unlock(){
+        if(m_locked){
+            m_locked = false;
+            m_mutex->unlock();
+        }
+    }
+private:
+    T* m_mutex;
+    bool m_locked;
+};
+
+
+/*
+    读写锁的封装
+*/
+class RWLock{
+public:
+    RWLock(){
+        pthread_rwlock_init(&m_lock, nullptr);
+    }
+
+    ~RWLock(){
+        pthread_rwlock_destroy(&m_lock);
+    }
+
+    int readlock(){
+        return pthread_rwlock_rdlock(&m_lock);
+    }
+
+    int writelock(){
+        return pthread_rwlock_wrlock(&m_lock);
+    }
+
+    int unlock(){
+        return pthread_rwlock_unlock(&m_lock);
+    }
+private:
+    pthread_rwlock_t m_lock{};
+};
+
+// 可直接使用读写锁加锁，无需考虑释放的问题
+using ReadScopeLock = ReadScopeLockImpl<RWLock>;
+using WriteScopeLock = WriteScopeLockImpl<RWLock>;
 
 }
 
