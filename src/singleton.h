@@ -1,7 +1,7 @@
 // 实现单例
 
-#ifndef SINGLETON
-#define SINGLETON
+#ifndef __SINGLETON_H__
+#define __SINGLETON_H__
 
 namespace caizi{
 

@@ -2,6 +2,7 @@
 #define __ADDRESS_H__
 
 #include <iostream>
+#include <ostream>
 #include <string>
 #include <vector>
 #include <memory>
@@ -20,7 +21,9 @@ public:
     static Address::ptr create(const sockaddr* addr, socklen_t addrlen);
     static Address::ptr create(const std::string& ip, uint16_t port);
 
+    // 协议簇
     int getFamily() const;
+    // 针对常量成员函数和非常量成员函数获取地址
     virtual const sockaddr* getAddr() const = 0;
     virtual sockaddr* getAddr() = 0;
     virtual socklen_t getAddrLen() const = 0;
@@ -56,8 +59,10 @@ public:
     static IPv4Address::ptr create(const char* address, uint16_t port = 0);
     IPv4Address(const sockaddr_in& address);
     IPv4Address(uint32_t address = INADDR_ANY, uint16_t port = 0);
-
+    ~IPv4Address();
+    
     const sockaddr* getAddr() const override;
+    sockaddr* getAddr() override;
     socklen_t getAddrLen() const override;
     IPAddress::ptr broadcastAddress(uint32_t prefix_len) const override;
     IPAddress::ptr networkAddress(uint32_t prefix_len) const override;
@@ -75,10 +80,12 @@ class IPv6Address : public IPAddress{
 public:
     typedef std::shared_ptr<IPv6Address> ptr;
     static IPv4Address::ptr create(const char* address, uint16_t port = 0);
-    IPv6Address(const sockaddr_in& address);
-    IPv6Address(uint32_t address = INADDR_ANY, uint16_t port = 0);
+    IPv6Address();
+    IPv6Address(const sockaddr_in6& address);
+    IPv6Address(const uint8_t address[16], uint16_t port = 0);
 
     const sockaddr* getAddr() const override;
+    sockaddr* getAddr() override;
     socklen_t getAddrLen() const override;
     std::ostream& insert(std::ostream& os) const override;
 
@@ -89,9 +96,10 @@ public:
     uint32_t get_port() const override;
     void set_port(uint16_t) override;
 private:
-    sockaddr_in m_addr;
+    sockaddr_in6 m_addr;
 };
 
+// 待实现
 class UnixAddress : public Address{
 public:
     typedef std::shared_ptr<UnixAddress> ptr;
@@ -105,6 +113,7 @@ private:
     socklen_t m_length;
 };
 
+// 待实现
 class UnknownAddress: public Address{
 public:
     typedef std::shared_ptr<UnknownAddress> ptr;
