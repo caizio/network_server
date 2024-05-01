@@ -2,10 +2,14 @@
 #include <sstream>
 #include "endiant.h"
 #include "log.h"
+#include <arpa/inet.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
 
 namespace caizi{
 
-static caizi::Logger::ptr g_logger = GET_LOGGER("address");
+static caizi::Logger::ptr g_logger = CAIZI_GET_LOGGER("address");
 
 
 // 创建mask
@@ -17,6 +21,27 @@ static T CreateMask(uint32_t bits){
 /*
     Address基类
 */
+Address::ptr Address::create(const sockaddr* addr, socklen_t addrlen){
+    if(addr == nullptr){
+        return nullptr;
+    }
+
+    Address::ptr result;
+    switch(addr->sa_family){
+        case AF_INET:
+            result.reset(new IPv4Address(*(sockaddr_in*)(addr)));
+            break;
+        case AF_INET6:
+            result.reset(new IPv6Address(*(sockaddr_in6*)(addr)));
+            break;
+        default:
+            result.reset(new UnknownAddress(*addr));
+            break;
+    }
+    return result;
+}
+
+
 int Address::getFamily() const{
     return getAddr()->sa_family;
 }
@@ -48,9 +73,49 @@ bool Address::operator!=(const Address& rhs) const{
     return !(*this == rhs);
 }
 
+IPAddress::ptr IPAddress::create(const char* address, uint16_t port){
+    addrinfo hints, *results;
+    memset(&hints, 0, sizeof(addrinfo));
+
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_flags = AI_NUMERICHOST;
+    // hints是用于解析地址的配置信息，result为结果
+    int ret = getaddrinfo(address, nullptr, &hints, &results);
+    if(ret){
+        LOG_FMT_DEBUG(g_logger, "IPAddress::Create:%s, %d, 创建失败！已返回空指针",address, port);
+        return nullptr;
+    }
+    
+    try{
+        IPAddress::ptr res = std::dynamic_pointer_cast<IPAddress>(
+                            Address::create(results->ai_addr, results->ai_addrlen));
+        if(res){
+            res->set_port(port);
+        }
+        freeaddrinfo(results);
+        return res;
+    }catch(...){
+        freeaddrinfo(results);
+        return nullptr;
+    }
+    return nullptr;
+}
+
 /*
     IPv4Address
 */
+IPv4Address::ptr IPv4Address::create(const char* address, uint16_t port){
+    IPv4Address::ptr rt(new IPv4Address());
+    rt->m_addr.sin_family = AF_INET;
+    rt->m_addr.sin_port = port;
+    int result = inet_pton(AF_INET, address, &rt->m_addr.sin_addr);
+    if(result <= 0){
+        LOG_FMT_DEBUG(g_logger, "IPv4Address::create:%s, %d, 创建IPv4失败！已返回空指针",address,result);
+        return nullptr;
+    }
+    return rt;
+}
+
 IPv4Address::IPv4Address(const sockaddr_in& address){
     m_addr = address;
 }
@@ -144,21 +209,42 @@ sockaddr* IPv6Address::getAddr(){
 socklen_t IPv6Address::getAddrLen() const{
     return sizeof(m_addr);
 }
+
+// IPv6地址有零压缩机制
+// 每一块多个前导的0可以省略，一个块全为0可以简写为一个0，多个块为连续0的话可以简写为:: (地址表示中仅能有一个::)
+// URL中IPv6地址必须加[]
+// 待完善
 std::ostream& IPv6Address::insert(std::ostream& os) const{
     uint16_t* addr = (uint16_t*)m_addr.sin6_addr.s6_addr;
+    os << "[";
+    bool used_zero = false;
     for(int i = 0; i < 8; i++){
-
+        if(addr[i] == 0 && !used_zero){
+            continue;
+        }
+        if(i && addr[i - 1] == 0 && !used_zero) {
+            os << ":";
+            used_zero = true;
+        }
+        if(i) {
+            os << ":";
+        }
+        if(i) os << ":";
+        os << std::hex << (int)byteswapOnLitterEndian(addr[i]) << std::dec;
     }
+
+    os << "]:" << byteswapOnLitterEndian(m_addr.sin6_port);
+    return os;
 }
 
 IPAddress::ptr IPv6Address::broadcastAddress(uint32_t prefix_len) const{
-
+    return nullptr;
 }
 IPAddress::ptr IPv6Address::networkAddress(uint32_t prefix_len) const{
-
+    return nullptr;
 }
 IPAddress::ptr IPv6Address::subnetMask(uint32_t prefix_len) const{
-
+    return nullptr;
 }
 
 uint32_t IPv6Address::get_port() const{
@@ -168,5 +254,39 @@ void IPv6Address::set_port(uint16_t port){
     m_addr.sin6_port = byteswapOnLitterEndian(port);
 }
 
+/*
+    UnixAddress地址
+*/
+UnixAddress::UnixAddress(const std::string& path){
+
+}
+
+const sockaddr* UnixAddress::getAddr() const{
+    return (sockaddr*)&m_addr;
+};
+socklen_t UnixAddress::getAddrLen() const{
+    return m_length;
+};
+std::ostream& UnixAddress::insert(std::ostream& os) const{
+    return os;
+};
+
+/*
+    未知地址
+*/
+UnknownAddress::UnknownAddress(int family){};
+UnknownAddress::UnknownAddress(const sockaddr& addr){};
+const sockaddr* UnknownAddress::getAddr() const{
+    return nullptr;
+};
+sockaddr* UnknownAddress::getAddr() {
+    return nullptr;
+};
+socklen_t UnknownAddress::getAddrLen() const{
+    return 0;
+};
+std::ostream& UnknownAddress::insert(std::ostream& os) const{
+    return os;
+};
 
 }

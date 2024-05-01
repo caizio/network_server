@@ -16,10 +16,11 @@ namespace caizi{
 class Address{
 public:
     typedef std::shared_ptr<Address> ptr;
-    virtual ~Address();
+    Address(){};
+    virtual ~Address(){};
 
     static Address::ptr create(const sockaddr* addr, socklen_t addrlen);
-    static Address::ptr create(const std::string& ip, uint16_t port);
+    // static Address::ptr create(const std::string& ip, uint16_t port);
 
     // 协议簇
     int getFamily() const;
@@ -29,7 +30,7 @@ public:
     virtual socklen_t getAddrLen() const = 0;
 
     // 将地址信息插入到输出流
-    virtual std::ostream& insert(std::ostream& os) const;
+    virtual std::ostream& insert(std::ostream& os) const = 0;
     std::string toString() const;
 
     // 用于地址的比较
@@ -42,6 +43,7 @@ class IPAddress : public Address{
 public:
     typedef std::shared_ptr<IPAddress> ptr;
 
+    static IPAddress::ptr create(const char* address, uint16_t port = 0);
     // 获取IP地址的广播地址
     virtual IPAddress::ptr broadcastAddress(uint32_t prefix_len) const = 0;
     // 获取ip地址的网段
@@ -76,6 +78,7 @@ private:
     sockaddr_in m_addr;
 };
 
+// 待完善
 class IPv6Address : public IPAddress{
 public:
     typedef std::shared_ptr<IPv6Address> ptr;
