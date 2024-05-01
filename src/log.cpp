@@ -337,7 +337,6 @@ void __LoggerManager::init(){
 
 // 确保只保留一个全局日志器
 void __LoggerManager::ensureGlobalLoggerExists(){
-    ScopeLock lock(&m_mutex);
     auto iter = m_logger_map.find("global");
     if(iter == m_logger_map.end()){
         // 如果不存在全局日志器，则重新构造一个默认的

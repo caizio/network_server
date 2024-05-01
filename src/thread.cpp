@@ -9,7 +9,7 @@ static thread_local Thread* t_thread = nullptr;
 static thread_local pid_t t_tid = 0;
 static thread_local std::string t_thread_name = "UNKNOW";
 
-static Logger::ptr system_logger = GET_LOGGER("system");
+static Logger::ptr system_logger = CAIZI_GET_LOGGER("system");
 
 /*
     Semaphore 类的实现

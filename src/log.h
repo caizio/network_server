@@ -42,8 +42,8 @@
 #define LOG_FMT_ERROR(logger, format, argv...) LOG_FMT_LEVEL(logger, caizi::LogLevel::ERROR, format, argv)
 #define LOG_FMT_FATAL(logger, format, argv...) LOG_FMT_LEVEL(logger, caizi::LogLevel::FATAL, format, argv)
 
-#define GET_ROOT_LOGGER() caizi::LoggerManager::getInstance()->getGlobalLogger()
-#define GET_LOGGER(name) caizi::LoggerManager::getInstance()->getLogger(name)
+#define CAIZI_GET_ROOT_LOGGER() caizi::LoggerManager::getInstance()->getGlobalLogger()
+#define CAIZI_GET_LOGGER(name) caizi::LoggerManager::getInstance()->getLogger(name)
 
 namespace caizi{
 
