@@ -204,6 +204,10 @@ Logger::Logger():m_name("default"),m_level(LogLevel::DEBUG), m_format_pattern("%
     m_formatter.reset(new LogFormatter(m_format_pattern));
 }
 
+Logger::Logger(const std::string& name): m_name(name),m_level(LogLevel::DEBUG), m_format_pattern("%p%d%n%d%t%d%f%d%l%d%m"){
+    m_formatter.reset(new LogFormatter(m_format_pattern));
+}
+
 Logger::Logger(const std::string& name,  LogLevel::Level level, const std::string &pattern): m_name(name), m_level(level){
     m_formatter.reset(new LogFormatter(pattern));
 }
@@ -314,10 +318,17 @@ __LoggerManager::__LoggerManager(){
 Logger::ptr __LoggerManager::getLogger(const std::string &name){
     ScopeLock lock(&m_mutex);
     auto iter = m_logger_map.find(name);
-    if(iter == m_logger_map.end()){
-        return m_logger_map.find("global")->second;
+    if(iter != m_logger_map.end()){
+        return iter->second;
     }
-    return iter->second;
+
+    Logger::ptr logger = std::make_shared<Logger>("name");
+    LogAppender::ptr appender = std::make_shared<StdoutLogAppender>(LogLevel::DEBUG);
+    logger->addAppender(appender);
+    m_logger_map[name] = logger;
+    std::cout << "成功创建日志器: " << name << std::endl;
+    return logger;
+
 }
 
 Logger::ptr __LoggerManager::getGlobalLogger(){
@@ -330,7 +341,7 @@ void __LoggerManager::init(){
     Logger::ptr logger = std::make_shared<Logger>("global",LogLevel::DEBUG,"%p%d%n%d%t%d%f%d%l%d%m");
     LogAppender::ptr appender = std::make_shared<StdoutLogAppender>(LogLevel::DEBUG);
     logger->addAppender(appender);
-    std::cout << "成功创建日志器: " << "global" << std::endl;
+    // std::cout << "成功创建日志器: " << "global" << std::endl;
     m_logger_map.insert(std::make_pair("global",std::move(logger)));
     ensureGlobalLoggerExists();
 }

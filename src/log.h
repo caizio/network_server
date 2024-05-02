@@ -1,5 +1,5 @@
-#ifndef __LOG_H__
-#define __LoG_H__
+#ifndef __CAIZI_LOG_H__
+#define __CAIZI_LOG_H__
 
 #include <iostream>
 #include <fstream>
@@ -163,6 +163,7 @@ public:
     typedef std::shared_ptr<Logger> ptr;
 
     Logger();
+    Logger(const std::string& name);
     Logger(const std::string& name, LogLevel::Level, const std::string &pattern);
     void log(LogLevel::Level level, LogEvent::ptr event);    
     void addAppender(LogAppender::ptr appender);

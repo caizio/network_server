@@ -1,3 +1,6 @@
+#ifndef __CAIZI_CONFIG_H__
+#define __CAIZI_CONFIG_H__
+
 #include <memory>
 #include <string>
 #include <boost/lexical_cast.hpp>
@@ -197,3 +200,6 @@ private:
 std::ostream& operator<<(std::ostream & out, const ConfigVarBase &cvb);
 
 };
+
+
+#endif

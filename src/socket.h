@@ -13,7 +13,8 @@
 
 namespace caizi{
 
-class Socket : public std::enable_shared_from_this<Socket>, Noncopyable{
+class Socket: public std::enable_shared_from_this<Socket>, Noncopyable{
+public:
     typedef std::shared_ptr<Socket> ptr;
     typedef std::weak_ptr<Socket> wptr;
 
@@ -76,11 +77,11 @@ class Socket : public std::enable_shared_from_this<Socket>, Noncopyable{
 
     Address::ptr getRemoteAddress();
     Address::ptr getLocalAddress();
-    int getSocket() const { return m_sock;}
-    int getFamily() const {return m_family;};
-    int getType() const {return m_type;};
-    int getProtocol() const {return m_protocol;};
-    bool isConnect() const {return m_isConnect;};
+    int getSocket() const;
+    int getFamily() const;
+    int getType() const;
+    int getProtocol() const;
+    bool isConnect() const;
     bool isValid() const;
     int getError();
 
